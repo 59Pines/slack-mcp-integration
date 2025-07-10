@@ -19,8 +19,7 @@ After installation, configure Claude Desktop with your user token:
       "command": "npx",
       "args": ["-y", "slack-mcp-server@latest", "--transport", "stdio"],
       "env": {
-        "SLACK_MCP_XOXP_TOKEN": "xoxp-your-token-here",
-        "SLACK_MCP_TEAM_ID": "T4116FF8C"
+        "SLACK_MCP_XOXP_TOKEN": "xoxp-your-token-here"
       }
     }
   }
