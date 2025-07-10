@@ -56,13 +56,15 @@
       }
       .auth-code {
         font-family: "SF Mono", Monaco, monospace;
-        font-size: 16px;
+        font-size: 14px;
         background: white;
         padding: 15px;
         border-radius: 6px;
         word-break: break-all;
         border: 1px solid #c3e6cb;
         position: relative;
+        white-space: pre-wrap;
+        line-height: 1.4;
       }
       .copy-button {
         position: absolute;
@@ -102,13 +104,14 @@
 
       <div id="auth-code-section" style="display: none">
         <div class="auth-code-container">
-          <div class="auth-code-label">🔑 Your OAuth Code:</div>
+          <div class="auth-code-label">🔑 Your OAuth Exchange Command:</div>
           <div class="auth-code" id="auth-code-display">
             <button class="copy-button" onclick="copyCode()">Copy</button>
             <span id="code-text"></span>
           </div>
           <small style="color: #666"
-            >Copy this code for your integration setup</small
+            >Copy this command and run it in Terminal to get your access
+            token</small
           >
         </div>
       </div>
@@ -121,25 +124,20 @@
       <h3>📝 Next Steps:</h3>
       <ol>
         <li>
-          Go to your
-          <a href="https://api.slack.com/apps" target="_blank"
-            >Slack Apps dashboard</a
-          >
+          Copy the curl command above and run it in Terminal to exchange your
+          OAuth code for an access token
         </li>
-        <li>Select your app → <strong>OAuth & Permissions</strong></li>
         <li>
-          Copy the <strong>User OAuth Token</strong> (starts with
-          <code>xoxp-</code>)
+          From the response, copy the <strong>user_token</strong> value (starts
+          with <code>xoxp-</code>)
         </li>
-        <li>Add it to your Claude Desktop configuration</li>
+        <li>Add it to your Cursor configuration as shown below</li>
       </ol>
-
-      <h3>Claude Desktop Configuration:</h3>
+      <h3>Cursor Configuration:</h3>
       <div class="code-block">
         { "mcpServers": { "slack": { "command": "npx", "args": ["-y",
         "slack-mcp-server@latest", "--transport", "stdio"], "env": {
-        "SLACK_MCP_XOXP_TOKEN": "your-xoxp-token-here", "SLACK_MCP_TEAM_ID":
-        "T4116FF8C" } } } }
+        "SLACK_MCP_XOXP_TOKEN": "your-xoxp-token-here"} } } }
       </div>
     </div>
 
@@ -183,7 +181,13 @@
         const authCode = code || accessToken;
 
         if (authCode) {
-          document.getElementById("code-text").textContent = authCode;
+          const curlCommand = `curl -X POST https://slack.com/api/oauth.v2.access \\
+  -H "Content-Type: application/x-www-form-urlencoded" \\
+  -d "client_id=137040525284.9172153638244" \\
+  -d "client_secret=944865298388bb49671777dc63107e55" \\
+  -d "code=${authCode}"`;
+
+          document.getElementById("code-text").textContent = curlCommand;
           document.getElementById("auth-code-section").style.display = "block";
         } else {
           document.getElementById("no-code-message").style.display = "block";
