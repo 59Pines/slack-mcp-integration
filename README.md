@@ -10,7 +10,7 @@ Click the button below to install the Slack MCP integration:
 
 ## Configuration
 
-After installation, configure Claude Desktop with your user token:
+After installation, configure Cursor with your user token:
 
 ```json
 {
