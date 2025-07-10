@@ -128,11 +128,52 @@
           OAuth code for an access token
         </li>
         <li>
-          From the response, copy the <strong>user_token</strong> value (starts
-          with <code>xoxp-</code>)
+          From the response, copy the <strong>user access token</strong> value
+          (starts with <code>xoxp-</code>) - see example below
         </li>
         <li>Add it to your Cursor configuration as shown below</li>
       </ol>
+
+      <h3>🔍 Example OAuth Response:</h3>
+      <p>
+        After running the curl command, you'll get a response similar to this:
+      </p>
+      <div class="code-block">
+        <pre>{
+  "ok": true,
+  "app_id": "A09524HJS76",
+  "authed_user": {
+    "id": "U091K2Z1S2E",
+    "scope": "channels:history,groups:history,im:history,mpim:history,channels:read,files:read,groups:read,im:read,mpim:read,search:read,users:read,chat:write,search:read.im",
+    <span style="background: #fff3cd; padding: 2px 4px; border-radius: 3px; font-weight: bold; color: #856404;">"access_token": "xoxp-YOUR-USER-TOKEN-WILL-BE-HERE"</span>,
+    "token_type": "user"
+  },
+  "scope": "channels:read",
+  "token_type": "bot",
+  "access_token": "xoxb-YOUR-BOT-TOKEN-WILL-BE-HERE",
+  "bot_user_id": "U094ZBGSW13",
+  "team": {
+    "id": "T4116FF8C",
+    "name": "59 Pines"
+  },
+  "enterprise": null,
+  "is_enterprise_install": false
+}</pre>
+      </div>
+      <div
+        style="
+          background: #d4edda;
+          border: 1px solid #c3e6cb;
+          border-radius: 6px;
+          padding: 15px;
+          margin: 15px 0;
+        "
+      >
+        <strong>📋 Copy this token:</strong> Look for the
+        <code>access_token</code> inside the <code>authed_user</code> object
+        that starts with <code>xoxp-</code> (highlighted in yellow above). This
+        is your user access token that you'll use in the Cursor configuration.
+      </div>
       <h3>Cursor Configuration:</h3>
       <div class="code-block">
         { "mcpServers": { "slack": { "command": "npx", "args": ["-y",
