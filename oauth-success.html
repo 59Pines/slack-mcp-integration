@@ -174,12 +174,117 @@
         that starts with <code>xoxp-</code> (highlighted in yellow above). This
         is your user access token that you'll use in the Cursor configuration.
       </div>
-      <h3>Cursor Configuration:</h3>
-      <div class="code-block">
-        { "mcpServers": { "slack": { "command": "npx", "args": ["-y",
-        "slack-mcp-server@latest", "--transport", "stdio"], "env": {
-        "SLACK_MCP_XOXP_TOKEN": "your-xoxp-token-here"} } } }
+      <h3>⚙️ Cursor Configuration:</h3>
+      <p>
+        Follow these steps to add the Slack MCP server to your Cursor
+        configuration:
+      </p>
+
+      <ol>
+        <li>
+          <strong>Open Cursor Settings:</strong> Go to
+          <code>Cursor > Settings</code> (or <code>Cmd+,</code> on Mac)
+        </li>
+        <li>
+          <strong>Navigate to Tools:</strong> Click on
+          <code>Tools and Integrations</code> in the left sidebar
+        </li>
+        <li>
+          <strong>Add MCP Server:</strong> Click <code>Add new MCP server</code>
+        </li>
+        <li>
+          <strong>Edit Configuration:</strong> You'll see a JSON configuration
+          that looks like one of these:
+        </li>
+      </ol>
+
+      <div style="margin: 20px 0">
+        <h4>📋 If you see an empty configuration:</h4>
+        <div class="code-block">
+          <pre>
+{
+  "mcpServers": {}
+}</pre
+          >
+        </div>
+        <p>Replace it with:</p>
+        <div class="code-block">
+          <pre>
+{
+  "mcpServers": {
+    "slack": {
+      "command": "npx",
+      "args": ["-y", "slack-mcp-server@latest", "--transport", "stdio"],
+      "env": {
+        "SLACK_MCP_XOXP_TOKEN": "your-xoxp-token-here"
+      }
+    }
+  }
+}</pre
+          >
+        </div>
       </div>
+
+      <div style="margin: 20px 0">
+        <h4>📋 If you already have other MCP servers:</h4>
+        <div class="code-block">
+          <pre>
+{
+  "mcpServers": {
+    "existing-server": {
+      "command": "some-command",
+      "args": ["some-args"]
+    }
+  }
+}</pre
+          >
+        </div>
+        <p>
+          Add the Slack server inside the existing
+          <code>mcpServers</code> object:
+        </p>
+        <div class="code-block">
+          <pre>
+{
+  "mcpServers": {
+    "existing-server": {
+      "command": "some-command",
+      "args": ["some-args"]
+    },
+    "slack": {
+      "command": "npx",
+      "args": ["-y", "slack-mcp-server@latest", "--transport", "stdio"],
+      "env": {
+        "SLACK_MCP_XOXP_TOKEN": "your-xoxp-token-here"
+      }
+    }
+  }
+}</pre
+          >
+        </div>
+      </div>
+
+      <div
+        style="
+          background: #fff3cd;
+          border: 1px solid #ffeaa7;
+          border-radius: 6px;
+          padding: 15px;
+          margin: 15px 0;
+        "
+      >
+        <strong>⚠️ Important:</strong> Make sure to replace
+        <code>your-xoxp-token-here</code> with the actual user access token you
+        copied from the OAuth response (the one that starts with
+        <code>xoxp-</code>).
+      </div>
+
+      <ol start="5">
+        <li>
+          <strong>Restart Cursor:</strong> Restart Cursor for the changes to
+          take effect
+        </li>
+      </ol>
     </div>
 
     <script>
